@@ -1,0 +1,8 @@
+package com.blur.cryptobank.repository;
+
+import com.blur.cryptobank.data.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+
+}
