@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Crypto Bank</title>
+
+</head>
+<body class="gradient-custom">
+<br>
+<br>
+<div class = "container" layout:fragment="content">
+    <br>
+    <br>
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card bg-black">
+            <h1 class = "text-center text-white"> Add cryptocurrency </h1>
+            <div class = "card-body">
+                <form th:action="@{/cryptos}" th:object = "${crypto}" method="POST">
+                    <div class ="form-group">
+                        <label class="text-white"> Name </label>
+                        <input type = "text" name = "name" th:field = "*{name}" class = "form-control" placeholder="Enter Crypto Name"/>
+                    </div>
+
+                    <div class ="form-group">
+                        <label class="text-white"> Symbol </label>
+                        <input type = "text" name = "symbol" th:field = "*{symbol}" class = "form-control" placeholder="Enter Crypto Symbol"/>
+                    </div>
+
+                    <div class ="form-group">
+                        <label class="text-white"> Value </label>
+                        <input type = "number" name = "value" step="any" th:field = "*{value}" class = "form-control" placeholder="Enter crypto value compared to USD"/>
+                    </div>
+
+                    <div class = "box-footer">
+                        <button type="submit" class = "btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

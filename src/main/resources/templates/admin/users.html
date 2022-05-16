@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Crypto Bank</title>
+
+</head>
+<body class="gradient-custom">
+
+<div class ="container" layout:fragment="content">
+    <br>
+    <div class = "row">
+        <h1 class="text-white"> Users </h1>
+    </div>
+    <br>
+    <div class="container mt-6">
+        <table class = "table table-dark table-striped table-borderless table-hover align-middle text-center card-1 p-6">
+            <thead>
+            <tr>
+                <th>
+                    <span class="ml-1">#</span>
+                </th>
+                <th>
+                    <span class="ml-1">Username</span>
+                </th>
+                <th>
+                    <span class="ml-1">First Name</span>
+                </th>
+                <th>
+                    <span class="ml-1">Last Name</span>
+                </th>
+                <th>
+                    <span class="ml-1">Email</span>
+                </th>
+                <th>
+                    <span class="ml-1">Active</span>
+                </th>
+                <th>
+                    <span class="ml-1">Locked</span>
+                </th>
+                <th>
+                    <span class="ml-1">Role</span>
+                </th>
+                <th>
+                    <span class="ml-1">Action</span>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each = "user: ${users}" th:if="${user.role.name()=='USER'}">
+                <td th:text = "${user.id}"></td>
+                <td th:text = "${user.username}"></td>
+                <td th:text = "${user.firstName}"></td>
+                <td th:text = "${user.lastName}"></td>
+                <td th:text = "${user.email}"></td>
+                <td th:text = "${user.enabled}"></td>
+                <td th:text = "${user.locked}"></td>
+                <td th:text = "${user.role.name()}">
+                <td>
+                    <div class="p-1">
+                        <a th:href = "@{/users/{id}(id=${user.id})}" class = "btn btn-danger" >Delete</a>
+                    </div>
+                    <div class="p-1" th:if="${user.locked}">
+                        <a th:href="@{/users/lock/{id}(id=${user.id})}" class="btn btn-danger">Unlock</a>
+                    </div>
+                    <div class="p-1" th:unless="${user.locked}">
+                        <a th:href="@{/users/lock/{id}(id=${user.id})}" class="btn btn-success">Lock</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

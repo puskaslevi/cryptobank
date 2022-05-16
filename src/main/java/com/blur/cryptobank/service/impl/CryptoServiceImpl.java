@@ -41,4 +41,6 @@ public class CryptoServiceImpl implements CryptoService {
     public void deleteCryptoById(Long id) {
         cryptoRepository.deleteById(id);
     }
+
+    public void tradeCrypto(Long id){}
 }

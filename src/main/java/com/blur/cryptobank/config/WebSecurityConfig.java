@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static com.blur.cryptobank.data.UserRole.ADMIN;
 import static com.blur.cryptobank.data.UserRole.USER;
@@ -29,12 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/cryptos","/register","/login", "/", "confirm").permitAll()
-                .mvcMatchers("/cryptos/**").hasRole("ADMIN")
-                .mvcMatchers("/user/**").hasRole("USER")
+                .mvcMatchers("/cryptos","/register","/login", "/**", "confirm", "/error/**").permitAll()
+                .mvcMatchers("/cryptos/**", "/users").hasRole("ADMIN")
+                .mvcMatchers("/user/**", "/cryptos/trade/", "/logout", "/transfer").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated().and()
                 .formLogin(form -> form.defaultSuccessUrl("/").loginPage("/login").failureUrl("/login?error=true"))
-                .logout();
+                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling().accessDeniedPage("/error/forbidden");
 
     }
 

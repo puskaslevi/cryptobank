@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Crypto Bank</title>
+
+</head>
+<body class="gradient-custom">
+
+<div class ="container" layout:fragment="content">
+  <br>
+  <div class = "row">
+    <h1 class="text-white"> Market </h1>
+  </div>
+  <br>
+  <div class = "row">
+    <div class = "col-lg-3" sec:authorize="hasRole('ADMIN')">
+      <a th:href = "@{/cryptos/new}" class = "btn btn-primary btn-sm mb-3"> Add Crypto</a>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <table class = "table table-dark table-striped table-borderless table-hover align-middle text-center card-1 p-4">
+      <thead>
+      <tr>
+        <th>
+          <span class="ml-2">Symbol</span>
+        </th>
+        <th>
+          <span class="ml-2">Name</span>
+        </th>
+        <th>
+          <span class="ml-2">Value</span>
+        </th>
+        <th>
+          <span class="ml-4">Action</span>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each = "crypto: ${cryptos}">
+        <td th:text = "${crypto.symbol}"></td>
+        <td th:text = "${crypto.name}"></td>
+        <td th:text = "${#numbers.formatCurrency(crypto.value)}"></td>
+        <td>
+          <div class="p-2">
+            <a th:href = "@{/cryptos/trade/{id}(id=${crypto.id})}" class = "btn btn-info">Trade</a>
+            <a th:href = "@{/cryptos/edit/{id}(id=${crypto.id})}"
+               class = "btn btn-success" sec:authorize="hasRole('ADMIN')">Update</a>
+            <a th:href = "@{/cryptos/{id}(id=${crypto.id})}"
+               class = "btn btn-danger" sec:authorize="hasRole('ADMIN')">Delete</a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
+</body>
+</html>
