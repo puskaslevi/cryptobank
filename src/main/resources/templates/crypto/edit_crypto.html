@@ -1,61 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
     layout:decorate="~{layout}">
 <head>
 
 </head>
 <body>
-<div class = "container" layout:fragment="content">
-    <div class = "row">
-        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class = "text-center"> Update Crypto </h1>
-            <div class = "card-body">
-                <form th:action="@{/cryptos/{id} (id=${crypto.id})}" th:object = "${crypto}" method="POST">
-                    <div class ="form-group">
-                        <label> Crypto </label>
-                        <input
-                                type = "text"
-                                name = "name"
-                                th:field = "*{name}"
-                                class = "form-control"
-                                placeholder="Enter Crypto Name"
-                        />
+<div layout:fragment="content">
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-4 mt-md-3 pb-4">
+                                <h2 class="fw-bold mb-2 text-uppercase">Edit Cryptocurrency</h2>
+                                <form th:action="@{/cryptos/edit/{id} (id=${crypto.id})}" th:object = "${crypto}" method="POST">
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="nameX" th:field="*{name}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="nameX">Name</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="symbolX" th:field="*{symbol}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="symbolX">Symbol</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="valueX" th:field="*{value}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="valueX">Value</label>
+                                    </div>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Transfer</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class ="form-group">
-                        <label> Symbol </label>
-                        <input
-                                type = "text"
-                                name = "symbol"
-                                th:field = "*{symbol}"
-                                class = "form-control"
-                                placeholder="Enter Symbol"
-                        />
-                    </div>
-
-                    <div class ="form-group">
-                        <label> Value </label>
-                        <input
-                                type = "number"
-                                name = "value"
-                                th:field = "*{value}"
-                                class = "form-control"
-                                placeholder="Enter value"
-                        />
-                    </div>
-
-                    <div class = "box-footer">
-                        <button type="submit" class = "btn btn-primary">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 </body>
 </html>

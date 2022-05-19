@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * This is an entity user for the User registration.
+ */
 @EqualsAndHashCode
 @ToString
 @Setter

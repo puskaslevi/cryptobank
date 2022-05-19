@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * A JPA repository for the {@link UserEntity} entity.
+ */
 @Repository
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<UserEntity, Long> {

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+/**
+ * A service for handling all the actions related to the {@link ConfirmationToken} entity.
+ */
 @Service
 public class ConfirmationTokenService {
 

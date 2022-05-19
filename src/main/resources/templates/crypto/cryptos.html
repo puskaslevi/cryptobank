@@ -6,6 +6,13 @@
 <head>
   <meta charset="ISO-8859-1">
   <title>Crypto Bank</title>
+  <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"
+  ></script>
+
+  <script th:src="@{/js/getCryptosWithFilter.js}"></script>
 
 </head>
 <body class="gradient-custom">
@@ -26,6 +33,20 @@
       <thead>
       <tr>
         <th>
+          <input class="ml-2 bg-dark form-control text-white" type="text" id="symbolSearch"/>
+        </th>
+        <th>
+          <input class="ml-2 bg-dark form-control text-white" type="text" id="nameSearch"/>
+        </th>
+        <th>
+        </th>
+        <th>
+          <button class = "btn btn-info" id="filterCryptos">Search</button>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
           <span class="ml-2">Symbol</span>
         </th>
         <th>
@@ -40,14 +61,19 @@
       </tr>
       </thead>
 
-      <tbody>
+      <tbody id="cryptoTable">
       <tr th:each = "crypto: ${cryptos}">
         <td th:text = "${crypto.symbol}"></td>
         <td th:text = "${crypto.name}"></td>
         <td th:text = "${#numbers.formatCurrency(crypto.value)}"></td>
         <td>
-          <div class="p-2">
-            <a th:href = "@{/cryptos/trade/{id}(id=${crypto.id})}" class = "btn btn-info">Trade</a>
+          <div  class="p-2">
+            <a th:href = "@{/cryptos/trade/{id}(id=${crypto.id})}" class = "btn btn-info" id="dropDownButton" data-toggle="dropdown">Trade</a>
+            <div class="dropdown dropdown-menu drop" aria-labelledby="dropDownButton">
+              <a th:href="|@{/cryptos/trade/{id}(id=${crypto.id})}?trade=buy|" class="dropdown-item">Buy</a>
+              <a th:href="|@{/cryptos/trade/{id}(id=${crypto.id})}?trade=sell|" class="dropdown-item">Sell</a>
+            </div>
+            <a th:href = "@{/cryptos/transfer/{id}(id=${crypto.id})}" class = "btn btn-info" sec:authorize="hasAnyRole('ADMIN','USER')">Transfer</a>
             <a th:href = "@{/cryptos/edit/{id}(id=${crypto.id})}"
                class = "btn btn-success" sec:authorize="hasRole('ADMIN')">Update</a>
             <a th:href = "@{/cryptos/{id}(id=${crypto.id})}"
@@ -58,6 +84,10 @@
       </tbody>
 
     </table>
+    <script th:inline="javascript">
+      /* variable used by index.js */
+      var authorize = [[${#authentication.getAuthorities().contains('ADMIN')}]];
+    </script>
   </div>
 
 </div>

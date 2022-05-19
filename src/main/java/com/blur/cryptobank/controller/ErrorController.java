@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 
+/**
+ * This is just a basic controller to handle some error pages.
+ *
+ */
 @Controller
 public class ErrorController {
 

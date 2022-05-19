@@ -1,8 +1,7 @@
 package com.blur.cryptobank.config;
 
-import com.blur.cryptobank.service.impl.UserService;
+import com.blur.cryptobank.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,9 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static com.blur.cryptobank.data.UserRole.ADMIN;
-import static com.blur.cryptobank.data.UserRole.USER;
 
+/**
+ * This the security configuration class. It is used to configure the different levels of authorization based on path.
+ * The application used a custom authentication based on UserEntity which implements the UserDetails interface.
+ * The application uses the BCryptPasswordEncoder to hash the password.
+ * The application uses the DaoAuthenticationProvider to authenticate the user.
+ * There are two user roles: USER and ADMIN. These roles are used to determine the authorization level.
+ *
+ */
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
@@ -30,9 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/cryptos","/register","/login", "/**", "confirm", "/error/**").permitAll()
-                .mvcMatchers("/cryptos/**", "/users").hasRole("ADMIN")
-                .mvcMatchers("/user/**", "/cryptos/trade/", "/logout", "/transfer").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/cryptos","/register","/login", "/", "confirm", "/error/**", "/getCryptos").permitAll()
+                .antMatchers("/users").hasRole("ADMIN")
+                .antMatchers("/user/**", "/cryptos/trade/", "/logout", "/cryptos/transfer").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated().and()
                 .formLogin(form -> form.defaultSuccessUrl("/").loginPage("/login").failureUrl("/login?error=true"))
                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

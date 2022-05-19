@@ -9,6 +9,14 @@
         }
     </style>
     <title>Crypto Bank</title>
+
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"
+    ></script>
+
+    <script th:src="@{/js/getBalance.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -63,10 +71,12 @@
                                     <div class="col-sm-3">
                                         <p class="mb-0">Fiat balance</p>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <p class="text-muted mb-0" th:text="${#numbers.formatCurrency(user.fiat)}"></p>
+                                    <div class="col-sm-9" id="fiatBalance">
+<!--                                        <p class="text-muted mb-0" th:text="${#numbers.formatCurrency(user.fiat)}"></p>-->
                                     </div>
                                 </div>
+                                <hr>
+                                <button class="btn btn-outline-light btn-lg px-5" id="revealBalance" type="button" >Reveal balance</button>
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-6">

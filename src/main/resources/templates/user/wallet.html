@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+  <style>
+    .gradient-custom {
+      background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+    }
+  </style>
+  <title>Crypto Bank</title>
+
+  <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"
+  ></script>
+
+  <script th:src="@{/js/getBalance.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+  <section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+              <div class="mb-md-4 mt-md-3 pb-4">
+
+                <h2 class="fw-bold mb-2 text-uppercase">Wallet</h2>
+                <div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0 fw-bold"></p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="mb-0 fw-bold">Amount</p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="mb-0 fw-bold">Value</p>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div th:each="coin: ${wallet}">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0" th:text="${coin.getKey().symbol}"></p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="mb-0" th:text="${coin.getValue()}"></p>
+                    </div>
+                    <div class="col-sm-3">
+                      <p class="mb-0 currency" th:text="${coin.getValue()*coin.getKey().getValue()}+'$'"></p>
+                    </div>
+                    <div class="col-sm-3">
+                      <a class="btn btn-success btn-outline-light btn-sm" type="button" th:href="@{/crypto/trade/{id} (id=${coin.getKey().getId()})}" id="dropDownButton" data-toggle="dropdown">Trade</a>
+                      <div class="dropdown dropdown-menu drop" aria-labelledby="dropDownButton">
+                        <a th:href="|@{/cryptos/trade/{id}(id=${coin.getKey().getId()})}?trade=buy|" class="dropdown-item btn-success">Buy</a>
+                        <a th:href="|@{/cryptos/trade/{id}(id=${coin.getKey().getId()})}?trade=sell|" class="dropdown-item btn-danger">Sell</a>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

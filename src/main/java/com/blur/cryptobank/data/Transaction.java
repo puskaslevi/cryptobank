@@ -7,8 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
+
+/**
+ * This is an Entity class for the transaction.
+ */
 @AllArgsConstructor
 @Setter
 @Getter

@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Deposit</title>
+
+    <style>
+        .gradient-custom {
+            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+        }
+    </style>
 </head>
 <body>
 
@@ -16,23 +22,26 @@
                     <div class="card bg-dark text-white" style="border-radius: 1rem;">
                         <div class="card-body p-5 text-center">
                             <div class="mb-md-4 mt-md-3 pb-4">
-                                <h2 class="fw-bold mb-2 text-uppercase">Transfer</h2>
-                                <p class="text-white-50 mb-5" th:text="${transaction.currency.symbol}"> transfer</p>
-                                <form class="form-signup" method="POST" th:action="@{/cryptos/transfer/{id} (id=${crypto.id})}" th:object="${transaction}">
+                                <h2 class="fw-bold mb-2 text-uppercase">Trade</h2>
+                                <p class="text-white-50 mb-5" th:text="${crypto.symbol}"></p>
+                                <form class="form-signup" method="POST" th:action="@{/cryptos/trade/{id}(id=${crypto.id},trade=${trade})}">
                                     <div class="form-outline form-white mb-4">
-                                        <select class="form-control" th:field="*{receiver}" id="dropDownListUsers">
+                                        <select class="form-control" th:field="${transaction.receiver}" id="dropDownListUsers">
                                             <option value="0">Select receiver</option>
                                             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}" ></option>
                                         </select>
                                         <label class="form-label" for="dropDownListUsers">Receiver</label>
                                     </div>
                                     <div class="form-outline form-white mb-4">
-                                        <input type="number" step="any" id="depositX" th:assert="${transaction.amount <= account.get(crypto)}" th:field="*{amount}" class="form-control form-control-lg"/>
+                                        <select class="form-control" th:field="${transaction.currency}" id="dropDownListCryptos">
+                                            <option value="">Select cryptocurrency</option>
+                                            <option th:each="crypto : ${cryptos}" th:value="${crypto.id}" th:text="${crypto.symbol}"></option>
+                                        </select>
+                                        <label class="form-label" for="dropDownListCryptos">Currency</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="depositX" th:field="${transaction.amount}" class="form-control form-control-lg"/>
                                         <label class="form-label" for="depositX">Amount</label>
-                                        <script th:inline="javascript">
-                                            var element = document.getElementById('depositX');
-                                            element.max = [[${account.get(crypto)}]];
-                                        </script>
                                     </div>
                                     <button class="btn btn-outline-light btn-lg px-5" type="submit">Transfer</button>
                                 </form>
@@ -44,5 +53,6 @@
         </div>
     </section>
 </div>
+
 </body>
 </html>

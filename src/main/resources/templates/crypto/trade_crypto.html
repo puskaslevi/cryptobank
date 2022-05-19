@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Deposit</title>
+
+    <style>
+        .gradient-custom {
+            background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+        }
+    </style>
 </head>
 <body>
+
+<div layout:fragment="content">
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-4 mt-md-3 pb-4">
+                                <h2 class="fw-bold mb-2 text-uppercase" th:text="${trade}"></h2>
+                                <p class="text-white-50 mb-5" th:text="${crypto.symbol}"></p>
+                                <form class="form-signup" method="POST" th:action="@{/cryptos/trade/{id}(id=${crypto.id},trade=${trade})}">
+                                    <div class="form-outline form-white mb-4">
+                                        <th:block th:if="${trade == 'buy'}">
+                                            <p id="fiatX" th:text="${#numbers.formatCurrency(balance)}" class="form-control form-control-lg bg-dark text-white"/>
+                                            <label class="form-label" for="fiatX">Fiat balance</label>
+                                        </th:block>
+                                        <th:block th:if="${trade == 'sell'}">
+
+                                            <p th:if="${cryptoAmount != null}" id="cryptoX" th:text="${cryptoAmount}" class="form-control form-control-lg bg-dark text-white"/>
+                                            <p th:unless="${cryptoAmount != null}" id="nocryptoX" class="form-control form-control-lg bg-dark text-white">No crypto to sell</p>
+                                            <label class="form-label" >Crypto balance</label>
+                                        </th:block>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <p id="valueX" th:text="${#numbers.formatCurrency(crypto.value)}" class="form-control form-control-lg bg-dark text-white"/>
+                                        <label class="form-label" for="valueX">Cryptocurrency value</label>
+                                    </div>
+                                    <th:block>
+                                    <div class="form-outline form-white mb-4" th:if="${trade == 'buy'}">
+                                        <input type="number" step="any" th:max="${balance}" id="buyX" th:field="${value.value}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="buyX">USD</label>
+                                    </div>
+                                    </th:block>
+                                    <th:block>
+                                        <div class="form-outline form-white mb-4" th:if="${trade == 'sell'}">
+                                            <input type="number" step="any" th:max="${cryptoAmount}" id="sellX" th:field="${value.value}" class="form-control form-control-lg"/>
+                                            <label class="form-label" for="sellX">Amount</label>
+                                        </div>
+                                    </th:block>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit" th:text="${trade}"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
 </body>
 </html>

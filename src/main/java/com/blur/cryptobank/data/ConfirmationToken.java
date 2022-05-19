@@ -1,10 +1,18 @@
 package com.blur.cryptobank.data;
 
 import com.blur.cryptobank.data.UserEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+/**
+ * This is the token entity for the confirmation of the registration.
+ */
 
 @Entity
 public class ConfirmationToken {

@@ -7,7 +7,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+/**
+ * This is the configuration class for the web application. It is used to configure the where the
+ * static resource are to be found and the default view.
+ *
+ */
 @EnableWebMvc
 @Configuration
 @ComponentScan

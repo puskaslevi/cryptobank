@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * This is the Cryptocurrency entity.
+ * There are no constructors, setters and getters implemented because is handled by Lombok with Annotations.
+ */
 @Setter
 @Getter
 @NoArgsConstructor

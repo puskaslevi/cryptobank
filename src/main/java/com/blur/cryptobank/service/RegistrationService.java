@@ -4,12 +4,13 @@ import com.blur.cryptobank.data.ConfirmationToken;
 import com.blur.cryptobank.data.RegistrationRequest;
 import com.blur.cryptobank.data.UserEntity;
 import com.blur.cryptobank.data.UserRole;
-import com.blur.cryptobank.service.impl.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 
+/**
+ * A service for handling the registration process and the confirmation of the user's email.
+ */
 @Service
 public class RegistrationService {
     private final UserService userService;
@@ -24,6 +25,12 @@ public class RegistrationService {
         this.emailSender = emailSender;
     }
 
+    /**
+     * Processes the registration form and sends the confirmation email to the users email address.
+     *
+     * @param request the registration request entity
+     * @return the confirmation token
+     */
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
@@ -52,6 +59,13 @@ public class RegistrationService {
         return token;
     }
 
+    /**
+     * Confirms the user's account via the confirmation token.
+     * Check if the token is valid and not expired, then activates the users' account.
+     *
+     * @param token the confirmation token
+     * @return the confirmation token
+     */
     @Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
@@ -76,6 +90,12 @@ public class RegistrationService {
         return "confirmed";
     }
 
+    /**
+     * Builds the email body for the confirmation email.
+     * @param name the user's name
+     * @param link the confirmation link
+     * @return the email body
+     */
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +

@@ -8,42 +8,39 @@
     <title>Crypto Bank</title>
 
 </head>
-<body class="gradient-custom">
-<br>
-<br>
-<div class = "container" layout:fragment="content">
-    <br>
-    <br>
-    <div class = "row">
-        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card bg-black">
-            <h1 class = "text-center text-white"> Add cryptocurrency </h1>
-            <div class = "card-body">
-                <form th:action="@{/cryptos}" th:object = "${crypto}" method="POST">
-                    <div class ="form-group">
-                        <label class="text-white"> Name </label>
-                        <input type = "text" name = "name" th:field = "*{name}" class = "form-control" placeholder="Enter Crypto Name"/>
-                    </div>
+<body>
 
-                    <div class ="form-group">
-                        <label class="text-white"> Symbol </label>
-                        <input type = "text" name = "symbol" th:field = "*{symbol}" class = "form-control" placeholder="Enter Crypto Symbol"/>
+<div layout:fragment="content">
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-4 mt-md-3 pb-4">
+                                <h2 class="fw-bold mb-2 text-uppercase">Add Cryptocurrency</h2>
+                                <form th:action="@{/cryptos}" th:object = "${crypto}" method="POST">
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="nameX" th:field="*{name}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="nameX">Name</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="symbolX" th:field="*{symbol}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="symbolX">Symbol</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="number" step="any" id="valueX" th:field="*{value}" class="form-control form-control-lg"/>
+                                        <label class="form-label" for="valueX">Value</label>
+                                    </div>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Transfer</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class ="form-group">
-                        <label class="text-white"> Value </label>
-                        <input type = "number" name = "value" step="any" th:field = "*{value}" class = "form-control" placeholder="Enter crypto value compared to USD"/>
-                    </div>
-
-                    <div class = "box-footer">
-                        <button type="submit" class = "btn btn-primary">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 </body>
 </html>

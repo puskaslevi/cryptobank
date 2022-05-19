@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * A service for handling the confirmation email sending.
+ */
 @Service
 @AllArgsConstructor
-public class EmailService implements EmailSender {
+public class EmailService {
 
     private final static Logger LOGGER = LoggerFactory
             .getLogger(EmailService.class);
