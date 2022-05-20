@@ -37,11 +37,8 @@ GET: $(document).ready(
                             style: 'currency',
                         }).format(crypto.value);
 
-
-                        var dropDownDiv = document.createElement('div');
-                        dropDownDiv.setAttribute("class", "dropdown");
                         var dropDownMenu = document.createElement("div");
-                        dropDownMenu.setAttribute("class", "dropdown-menu drop");
+                        dropDownMenu.setAttribute("class", "dropdown dropdown-menu drop");
                         dropDownMenu.setAttribute("aria-labelledby", "dropDownButton");
                         var buyLink = document.createElement('a');
                         var sellLink = document.createElement('a');
@@ -54,10 +51,9 @@ GET: $(document).ready(
                         sellLink.innerHTML="Sell";
 
                         dropDownMenu.append(buyLink, sellLink);
-                        dropDownDiv.append(tradeButton, dropDownMenu);
 
                         tradeButton.setAttribute("href", "/cryptos/trade/" + crypto.id);
-                        tradeButton.setAttribute("class", "btn btn-info dropdown-toggle");
+                        tradeButton.setAttribute("class", "btn btn-info");
                         tradeButton.setAttribute("id", "dropDownButton");
                         tradeButton.setAttribute("data-toggle", "dropdown");
                         tradeButton.innerHTML="Trade";

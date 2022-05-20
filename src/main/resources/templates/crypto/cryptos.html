@@ -73,7 +73,7 @@
               <a th:href="|@{/cryptos/trade/{id}(id=${crypto.id})}?trade=buy|" class="dropdown-item">Buy</a>
               <a th:href="|@{/cryptos/trade/{id}(id=${crypto.id})}?trade=sell|" class="dropdown-item">Sell</a>
             </div>
-            <a th:href = "@{/cryptos/transfer/{id}(id=${crypto.id})}" class = "btn btn-info" sec:authorize="hasAnyRole('ADMIN','USER')">Transfer</a>
+            <a th:href = "@{/cryptos/transfer/{id}(id=${crypto.id})}" class = "btn btn-info">Transfer</a>
             <a th:href = "@{/cryptos/edit/{id}(id=${crypto.id})}"
                class = "btn btn-success" sec:authorize="hasRole('ADMIN')">Update</a>
             <a th:href = "@{/cryptos/{id}(id=${crypto.id})}"
@@ -86,7 +86,7 @@
     </table>
     <script th:inline="javascript">
       /* variable used by index.js */
-      var authorize = [[${#authentication.getAuthorities().contains('ADMIN')}]];
+      var authorize = [[${#authorization.expression('hasRole("ADMIN")')}]];
     </script>
   </div>
 

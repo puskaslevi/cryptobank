@@ -21,18 +21,18 @@
                                 <h2 class="fw-bold mb-2 text-uppercase">Add Cryptocurrency</h2>
                                 <form th:action="@{/cryptos}" th:object = "${crypto}" method="POST">
                                     <div class="form-outline form-white mb-4">
-                                        <input type="number" step="any" id="nameX" th:field="*{name}" class="form-control form-control-lg"/>
+                                        <input type="text" id="nameX" th:field="*{name}" class="form-control form-control-lg"/>
                                         <label class="form-label" for="nameX">Name</label>
                                     </div>
                                     <div class="form-outline form-white mb-4">
-                                        <input type="number" step="any" id="symbolX" th:field="*{symbol}" class="form-control form-control-lg"/>
+                                        <input type="text" id="symbolX" th:field="*{symbol}" class="form-control form-control-lg"/>
                                         <label class="form-label" for="symbolX">Symbol</label>
                                     </div>
                                     <div class="form-outline form-white mb-4">
                                         <input type="number" step="any" id="valueX" th:field="*{value}" class="form-control form-control-lg"/>
-                                        <label class="form-label" for="valueX">Value</label>
+                                        <label class="form-label" for="valueX">Value in USD</label>
                                     </div>
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Transfer</button>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Save</button>
                                 </form>
                             </div>
                         </div>

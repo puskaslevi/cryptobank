@@ -20,14 +20,13 @@
                                 <p class="text-white-50 mb-5" th:text="${transaction.currency.symbol}"> transfer</p>
                                 <form class="form-signup" method="POST" th:action="@{/cryptos/transfer/{id} (id=${crypto.id})}" th:object="${transaction}">
                                     <div class="form-outline form-white mb-4">
-                                        <select class="form-control" th:field="*{receiver}" id="dropDownListUsers">
-                                            <option value="0">Select receiver</option>
+                                        <select class="form-control" th:field="*{receiver}" id="dropDownListUsers" required>
                                             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}" ></option>
                                         </select>
                                         <label class="form-label" for="dropDownListUsers">Receiver</label>
                                     </div>
                                     <div class="form-outline form-white mb-4">
-                                        <input type="number" step="any" id="depositX" th:assert="${transaction.amount <= account.get(crypto)}" th:field="*{amount}" class="form-control form-control-lg"/>
+                                        <input type="number" step="any" id="depositX" th:assert="${transaction.amount <= account.get(crypto)}" th:field="*{amount}" class="form-control form-control-lg" required/>
                                         <label class="form-label" for="depositX">Amount</label>
                                         <script th:inline="javascript">
                                             var element = document.getElementById('depositX');

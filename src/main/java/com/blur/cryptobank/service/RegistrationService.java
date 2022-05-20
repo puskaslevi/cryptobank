@@ -4,6 +4,7 @@ import com.blur.cryptobank.data.ConfirmationToken;
 import com.blur.cryptobank.data.RegistrationRequest;
 import com.blur.cryptobank.data.UserEntity;
 import com.blur.cryptobank.data.UserRole;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 /**
  * A service for handling the registration process and the confirmation of the user's email.
  */
+@AllArgsConstructor
 @Service
 public class RegistrationService {
     private final UserService userService;
@@ -18,19 +20,13 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailService emailSender;
 
-    public RegistrationService(UserService userService, EmailValidator emailValidator, ConfirmationTokenService confirmationTokenService, EmailService emailSender) {
-        this.userService = userService;
-        this.emailValidator = emailValidator;
-        this.confirmationTokenService = confirmationTokenService;
-        this.emailSender = emailSender;
-    }
-
     /**
      * Processes the registration form and sends the confirmation email to the users email address.
      *
      * @param request the registration request entity
      * @return the confirmation token
      */
+    @Transactional
     public String register(RegistrationRequest request) {
         boolean isValidEmail = emailValidator.
                 test(request.getEmail());
